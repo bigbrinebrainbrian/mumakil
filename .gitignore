@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest cache
+.pytest_cache/
+
+# Local environment variables
+.env
+
+# Storage and runtime files
+storage/*.db
+storage/*.db-wal
+storage/*.db-shm
+storage/logs/*.log
+storage/last_inserts/InsertEntity_*.json
+
+# OS generated
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store

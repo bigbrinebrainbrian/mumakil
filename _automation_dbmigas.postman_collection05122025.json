@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "b69838b9-a701-43e7-a1d0-f6cc36571426",
+		"name": "automation_dbmigas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49243677",
+		"_collection_link": "https://shabriaan-7996804.postman.co/workspace/Shabrian-Adam's-Workspace~fd53036d-0702-4a61-8030-6339409b760f/collection/49243677-b69838b9-a701-43e7-a1d0-f6cc36571426?action=share&source=collection_link&creator=49243677"
+	},
+	"item": [
+		{
+			"name": "Dummy API test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ac_id\": \"AC1\",\r\n    \"acceptance_criteria\": \"dummy\",\r\n    \"expected_behavior\": \"dummy\",\r\n    \"api_response\": {\r\n        \"status\": 200,\r\n        \"body\": {}\r\n    },\r\n    \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/analyze.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"analyze.php"
+					]
+				},
+				"description": "API sudah normal. Gemini flash 2.0"
+			},
+			"response": []
+		},
+		{
+			"name": "TC1- AC01 : GetView",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"action\": \"EvaluateAC\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC01\",\r\n    \"params\": {\r\n      \"action\": \"GetMS_BANK\"\r\n    }\r\n  }\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				},
+				"description": "Acceptance Criteria 1 : Get View (Semua Get selain 4 Get Check) harus bisa menampilkan semua kolom pada tabel yang dimasukkan menggunakan AI"
+			},
+			"response": []
+		},
+		{
+			"name": "TC2-AC01 : GetView wrong",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\" : \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"action\": \"EvaluateAC\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC01\",\r\n    \"request\": {\r\n      \"action\": \"GetMS_SHIP\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				},
+				"description": "Kalau file ini salah, artinya QC BENAR  \nJika file ini resultsnya benar, QC nya justru SALAH"
+			},
+			"response": []
+		},
+		{
+			"name": "TC3-AC02: GetNamaKaryawan Found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetNamaKaryawan\",\r\n      \"nama\": \"Steph\"\r\n    },\r\n    \"filter\": { \"nama\": \"Steph\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC3-AC02: GetNamaKaryawan notFound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetNamaKaryawan\",\r\n      \"nama\": \"shabrian adam\"\r\n    },\r\n    \"filter\": { \"nama\": \"shabrian adam\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC5-AC02: GetNipKaryawan Found",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetNipKaryawan\",\r\n      \"nip\": \"199211092020122001\"\r\n    },\r\n    \"filter\": { \"nip\": \"199211092020122001\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC6-AC02: GetNipKaryawan notFound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetNipKaryawan\",\r\n      \"nip\": \"111222333\"\r\n    },\r\n    \"filter\": { \"nip\": \"111222333\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC8-AC02: GetKDBANK Found",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetKDBANK\",\r\n      \"kdbank\": \"ABALIDBS\"\r\n    },\r\n    \"filter\": { \"kdbank\": \"ABALIDBS\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC7-AC02: GetKDBANK notFound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC02\",\r\n    \"request\": {\r\n      \"action\": \"GetKDBANK\",\r\n      \"kdbank\": \"111222333\"\r\n    },\r\n    \"filter\": { \"kdbank\": \"111222333\" }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC9-AC03 : Insert Found",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC03\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_KARYAWAN\",\r\n      \"data\": {\r\n        \"nip\": \"198704092014022002\",\r\n        \"nama\": \"Apriliani\",\r\n        \"kodejabatan\": \"113\",\r\n        \"GOL\": \"III.c\",\r\n        \"kdunit\": \"SDMK\",\r\n        \"keterangan\": \"\",\r\n        \"ispns\": 1,\r\n        \"ismigas\": 0,\r\n        \"rek_bank\": \"BANK RAKYAT INDONESIA\",\r\n        \"rek_nama\": \"Apriliani\",\r\n        \"rek_nomor\": \"037801015331504\",\r\n        \"rek_kdbank\": \"BRINIDJA\",\r\n        \"isvalid\": 1,\r\n        \"jabatan\": \"Staf SDMK\",\r\n        \"npwp\": \"365570522005000\"\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC10-AC03 : InsertNotFound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC03\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_SHIP\",\r\n      \"data\": {\r\n        \"ship\":\"ship\"\r\n      }\r\n    }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC10-AC03 : Insert Found - MS_BANK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC3\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\" : \"ABALIDBS\",\r\n        \"NAMABANK\" : \"PT.BPD BALI\",\r\n        \"ISUSED\" : \"1\",\r\n        \"alias\" : \"BANK BALI\"\r\n      }\r\n    }\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC11-AC04 : Identical Insert Allowed - MS_AKRYAWAN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC04\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_KARYAWAN\",\r\n      \"data\": {\r\n        \"nip\": \"199211092020122001\",\r\n        \"nama\": \"Stephany Novianty\",\r\n        \"kodejabatan\": \"113\",\r\n        \"GOL\": \"III.c\",\r\n        \"kdunit\": \"SDMK\",\r\n        \"keterangan\": \"\",\r\n        \"ispns\": 1,\r\n        \"ismigas\": 0,\r\n        \"rek_bank\": \"BANK RAKYAT INDONESIA\",\r\n        \"rek_nama\": \"Apriliani\",\r\n        \"rek_nomor\": \"037801015331504\",\r\n        \"rek_kdbank\": \"BRINIDJA\",\r\n        \"isvalid\": 1,\r\n        \"jabatan\": \"Staf SDMK\",\r\n        \"npwp\": \"365570522005000\"\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC11-AC04 : Identical Insert Allowed - MS_BANK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC04\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\": \"ABALIDBS\",\r\n        \"NAMABANK\": \"PT.BPD BALI\",\r\n        \"ISUSED\": \"1\",\r\n        \"alias\": \"BANK BALI\"\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC12-AC4 : Identical Insert Fails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC12\",\r\n    \"request\": {\r\n      \"action\": \"InsertMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\": \"ABALIDBS\",\r\n        \"NAMABANK\": \"PT.BPD BALI\",\r\n        \"ISUSED\": \"1\",\r\n        \"alias\": \"BANK BALI\"\r\n      }\r\n    }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC19-AC07 : Delete Found",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC07\",\r\n    \"request\": {\r\n      \"action\": \"DeleteMS_BANK\",\r\n      \"data\": { \"KDBANK\": \"ABALIDBS\" }\r\n    }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC20-AC07 : Delete NotFound",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC07\",\r\n    \"request\": {\r\n      \"action\": \"DeleteMS_Ship\",\r\n      \"data\": { \"ship\": \"ship\" }\r\n    }\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC21-AC08 : Delete Requires Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"action\": \"EvaluateAC\",\r\n  \"token\": \"SDFGHJKL\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC21\",\r\n    \"request\": {\r\n      \"action\": \"DeleteMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\": \"BRINIDJA\"\r\n      }\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC22-AC09 : Delete Found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\" : \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"action\": \"EvaluateAC\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC09\",\r\n    \"request\": {\r\n      \"action\": \"UpdateMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\":\"ABALIDBS\",\r\n        \"NAMABANK\":\"PT.BPD BALI\",\r\n        \"ISUSED\": \"1\",\r\n        \"alias\": \"BANK BALI\"\r\n      }\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC23-AC09 : DeleteNotFound",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\" : \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"action\": \"EvaluateAC\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC09\",\r\n    \"request\": {\r\n      \"action\": \"UpdateMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\":\"ABALIDBS\"\r\n      }\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC24-AC10 : Update Valdiation Check",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\" : \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n  \"action\": \"EvaluateAC\",\r\n  \"use_ai\": true,\r\n  \"payload\": {\r\n    \"ac_id\": \"AC10\",\r\n    \"request\": {\r\n      \"action\": \"UpdateMS_BANK\",\r\n      \"data\": {\r\n        \"KDBANK\": \"BRINIDJA\",\r\n        \"NMBANK\": \"\" \r\n      }\r\n    }\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/automation_dbmigas/index.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"automation_dbmigas",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
